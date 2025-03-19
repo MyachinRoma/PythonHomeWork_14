@@ -33,6 +33,11 @@ def test_product_iterator(product_iterator):
         next(product_iterator)
 
 
+def test_category_product_list_smartphone(first_category, product_smartphone1):
+    first_category.list_product = product_smartphone1
+    assert first_category.products_in_list[-1].name == "Xiaomi Redmi Note 11"
+
+
 
 
 def test_product(product):
