@@ -29,7 +29,7 @@ class Product(BaseProduct, PrintMixin):
 
     @classmethod
     def new_product(cls, dict_product):
-        return cls(dict_product['name'], dict_product['description'], dict_product['price'], dict_product['quantity'])
+        return cls(**dict_product)
 
     @price.setter
     def price(self, new_price: int):
