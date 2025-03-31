@@ -3,7 +3,7 @@ import pytest
 from src.classess import Category, Product
 from src.product_iterator import ProductIterator
 from src.product_smartphone import Smartphone
-from src.product_lawngrass import Lawngrass
+from src.product_lawngrass import LawnGrass
 
 
 @pytest.fixture
@@ -63,9 +63,9 @@ def product_smartphone2():
 
 @pytest.fixture
 def product_lawngrass1():
-    return Lawngrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
+    return LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
 
 
 @pytest.fixture
 def product_lawngrass2():
-    return Lawngrass("Газонная трава 2", "Выносливая трава", 450.0, 15, "США", "5 дней", "Темно-зеленый")
+    return LawnGrass("Газонная трава 2", "Выносливая трава", 450.0, 15, "США", "5 дней", "Темно-зеленый")
