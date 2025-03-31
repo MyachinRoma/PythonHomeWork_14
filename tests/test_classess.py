@@ -19,7 +19,7 @@ def test_category_products_property(first_category):
 
 
 def test_category_str(first_category):
-    assert str(first_category) == "Смартфоны, колличество продуктов: 10 шт."
+    assert str(first_category) == "Смартфоны, количество продуктов: 10 шт."
 
 
 def test_product_iterator(product_iterator):
@@ -36,6 +36,11 @@ def test_product_iterator(product_iterator):
 def test_category_product_list_smartphone(first_category, product_smartphone1):
     first_category.list_product = product_smartphone1
     assert first_category.products_in_list[-1].name == "Xiaomi Redmi Note 11"
+
+
+def test_middle_price(first_category, category_without_product):
+    assert first_category.middle_price() == 140333.33333333334
+    assert category_without_product.middle_price() == 0
 
 
 

@@ -1,5 +1,6 @@
 from src.base_product import BaseProduct
 from src.print_mixin import PrintMixin
+from src.exeptions import ZeroQuantityProduct
 
 
 class Product(BaseProduct, PrintMixin):
@@ -12,7 +13,10 @@ class Product(BaseProduct, PrintMixin):
         self.name = name
         self.description = description
         self.__price = price
-        self.quantity = quantity
+        if quantity > 0:
+            self.quantity = quantity
+        else:
+            raise ValueError('Товар с нулевым количеством не может быть добавлен')
         super().__init__()
 
     def __str__(self):
@@ -29,7 +33,7 @@ class Product(BaseProduct, PrintMixin):
 
     @classmethod
     def new_product(cls, dict_product):
-        return cls(**dict_product)
+        return cls(dict_product['name'], dict_product['description'], dict_product['price'], dict_product['quantity'])
 
     @price.setter
     def price(self, new_price: int):
@@ -54,12 +58,21 @@ class Category:
         Category.product_count += len(products)
 
     def __str__(self):
-        return f'{self.name}, колличество продуктов: {Category.product_count} шт.'
+        return f'{self.name}, количество продуктов: {Category.product_count} шт.'
 
     def add_product(self, product: Product):
         if isinstance(product, Product):
-            self.__list_product.append(product)
-            Category.product_count += 1
+            try:
+                if product.quantity == 0:
+                    raise ZeroQuantityProduct('Нельзя добавить товар с нулевым количеством')
+            except ZeroQuantityProduct as e:
+                print(str(e))
+            else:
+                self.__list_product.append(product)
+                Category.product_count += 1
+                print('Продукт добавлен успешно')
+            finally:
+                print('Обработка добавления продукты прошла успешно')
         else:
             raise TypeError
 
@@ -73,3 +86,9 @@ class Category:
     @property
     def products_in_list(self):
         return self.__list_product
+
+    def middle_price(self):
+        try:
+            return sum([product.price for product in self.products_in_list]) / len(self.products_in_list)
+        except ZeroDivisionError:
+            return 0
