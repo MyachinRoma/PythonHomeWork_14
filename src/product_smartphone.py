@@ -1,7 +1,7 @@
 from src.classess import Product
 
 
-class smartphone(Product):
+class Smartphone(Product):
 
     def __init__(self, name, description, price, quantity, efficiency, model, memory, color):
         super().__init__(name, description, price, quantity)
@@ -11,6 +11,6 @@ class smartphone(Product):
         self.color = color
 
     def __add__(self, other):
-        if type(other) is smartphone:
+        if type(other) is Smartphone:
             return self.price * self.quantity + other.price * other.quantity
         raise TypeError
